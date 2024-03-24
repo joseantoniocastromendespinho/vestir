@@ -118,4 +118,16 @@ export async function addFavorite(formDada: FormData){
     const homeId = formDada.get("homeId") as string
     const userId = formDada.get("userId") as string
 
+    const date = await prisma.favorite.create(
+        {
+            data:{
+                    userId:userId,
+                    homeId:homeId
+            },
+
+        }
+
+
+    )
+
 }

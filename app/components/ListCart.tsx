@@ -10,10 +10,12 @@ interface AppProps{
     price:number,
     userId:string | undefined,
     isInFavorite:boolean,
-    favoriteId:string
+    favoriteId:string,
+    homeId:string,
+    
 }
 
-export function ListCart({imagePath,description,location,price,userId,isInFavorite,favoriteId}:AppProps){
+export function ListCart({imagePath,description,location,price,userId,isInFavorite,favoriteId,homeId}:AppProps){
     const {getCoutriesByValue} = UseCoutries()
     const country = getCoutriesByValue(location)
     console.log(country?.region)
@@ -27,10 +29,16 @@ export function ListCart({imagePath,description,location,price,userId,isInFavori
 
     {isInFavorite ? (
          <form>
+
             <AddFavoriteButton/>
          </form>
          ):(
-             <AddFavoriteButton/>
+             <form>
+                <input type="hidden" name="homeId" value={homeId}/>
+                <input type="hidden" name="userId" value={userId}/>
+              <AddFavoriteButton/>   
+             </form>
+          
         )}
  
 

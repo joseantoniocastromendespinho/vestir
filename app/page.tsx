@@ -69,6 +69,7 @@ async function ShowItems({searchParams,}: {searchParams?: {search: string;};}) {
         imagePath={item.photo as string} price={item.price as number} location={item.country as string}
         userId={user?.id}
         favoriteId={item.Favorite[0]?.id} isInFavorite={item.Favorite.length >0 ? true : false}
+          homeId={item.id}
         />))}
        </div>)}
     </>
