@@ -64,12 +64,12 @@ async function ShowItems({searchParams,}: {searchParams?: {search: string;};}) {
 
   return (
     <>
-       {data.length==0 ? (<NoItem/>):(<div className="grid lg:grid-cols-4 sm:grid-cols-3 gap-8 mt-8">
+       {data.length==0 ? (<NoItem title="Pagina Categorias" description="Não tem categorias!!!"/>):(<div className="grid lg:grid-cols-4 sm:grid-cols-3 gap-8 mt-8">
         {data.map((item)=>(<ListCart key={item.id} description={item.description as string}
         imagePath={item.photo as string} price={item.price as number} location={item.country as string}
         userId={user?.id}
         favoriteId={item.Favorite[0]?.id} isInFavorite={item.Favorite.length >0 ? true : false}
-          homeId={item.id}
+          homeId={item.id} pathname="/"
         />))}
        </div>)}
     </>

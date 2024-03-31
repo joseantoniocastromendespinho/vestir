@@ -1,6 +1,7 @@
 "use server"
 import prisma from "@/lib/db"
 import { supabase } from "@/lib/superbase"
+import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 
 export async function createVestirHome({id}:{id:string}){
@@ -113,10 +114,11 @@ export async function createLocation(formData:FormData){
         })
         return redirect("/");
     }
-export async function addFavorite(formDada: FormData){
+export async function addFavorite(formData: FormData){
 
-    const homeId = formDada.get("homeId") as string
-    const userId = formDada.get("userId") as string
+    const homeId = formData.get("homeId") as string
+    const userId = formData.get("userId") as string
+    const pathname = formData.get("pathname") as string
 
     const date = await prisma.favorite.create(
         {
@@ -129,5 +131,21 @@ export async function addFavorite(formDada: FormData){
 
 
     )
+    revalidatePath(pathname)
 
+}
+
+export async function DeleteFavorite(formData:FormData){
+const favoriteId = formData.get('favoriteId') as string
+const userId = formData.get("userId") as string
+const pathname = formData.get("pathname") as string
+
+const data = await prisma.favorite.delete({
+    where:{
+        id: favoriteId,
+        userId: userId
+    }
+})
+
+revalidatePath(pathname)
 }
